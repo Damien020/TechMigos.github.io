@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Migos — Premium Web Design in Ghana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dim: #7A6230;
+    --bg: #080808;
+    --bg2: #0F0F0F;
+    --bg3: #161616;
+    --surface: #1A1A1A;
+    --border: rgba(201,168,76,0.15);
+    --text: #F0EDE8;
+    --text-muted: #7A7570;
+    --text-dim: #3A3530;
+    --accent: #FF5C28;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.35s cubic-bezier(0.19,1,0.22,1), width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.5;
+  }
+  body:hover .cursor, body:hover .cursor-ring { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(8,8,8,0.7);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    transition: background 0.3s;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .logo span { color: var(--gold); }
+  .logo-dot {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: #080808 !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: #080808 !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+    gap: 4rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 700px; height: 700px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.3;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--border);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 460px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: #080808;
+    padding: 1rem 2rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    color: var(--text-muted);
+    padding: 1rem 1.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-ghost:hover { color: var(--text); }
+  .btn-ghost::after { content: '→'; transition: transform 0.2s; }
+  .btn-ghost:hover::after { transform: translateX(4px); }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1s 0.6s forwards;
+  }
+  .hero-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .card-bar {
+    background: var(--surface);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .card-url {
+    flex: 1;
+    background: var(--bg2);
+    border-radius: 2px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: monospace;
+  }
+  .card-preview {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #0F0F0F 0%, #141410 100%);
+    min-height: 340px;
+    position: relative;
+  }
+  .preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .preview-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--gold);
+  }
+  .preview-nav {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+  .preview-hero {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .preview-sub { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.5; max-width: 260px; }
+  .preview-btn {
+    background: var(--gold);
+    color: #080808;
+    padding: 0.4rem 1rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  .preview-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .preview-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.75rem;
+    font-size: 0.6rem;
+  }
+  .preview-card-icon {
+    width: 20px; height: 20px;
+    background: rgba(201,168,76,0.1);
+    border-radius: 2px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+  .preview-card-title { color: var(--text); font-weight: 600; margin-bottom: 0.2rem; font-family: 'Syne', sans-serif; }
+  .preview-card-text { color: var(--text-muted); line-height: 1.4; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-top: 1px;
+    border-top: 1px solid var(--border);
+  }
+  .hero-stat {
+    background: var(--bg3);
+    padding: 1.2rem 1rem;
+    text-align: center;
+  }
+  .hero-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 4rem;
+    width: max-content;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .marquee-item::after {
+    content: '◆';
+    color: var(--gold);
+    font-size: 0.5rem;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .section-sub {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 480px;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* SERVICES */
+  .services { background: var(--bg2); }
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .service-card {
+    background: var(--bg2);
+    padding: 2.5rem;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .service-card:hover { background: var(--bg3); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--gold-dim);
+    margin-bottom: 1.5rem;
+  }
+  .service-icon {
+    width: 44px; height: 44px;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+  .service-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .service-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.75; font-weight: 300; }
+
+  /* PROCESS */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 3rem; right: 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), var(--gold-dim), var(--border));
+  }
+  .process-step { text-align: center; padding-top: 0.5rem; }
+  .step-circle {
+    width: 56px; height: 56px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    background: var(--bg2);
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    position: relative;
+    z-index: 1;
+  }
+  .step-title { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 0.5rem; font-size: 0.95rem; }
+  .step-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
+
+  /* WORK */
+  .work { background: var(--bg2); }
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3.5rem;
+  }
+  .work-card {
+    background: var(--bg2);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .work-card:hover { background: var(--bg3); }
+  .work-card.featured { grid-row: span 2; }
+  .work-thumb {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .work-card.featured .work-thumb { height: 100%; min-height: 320px; }
+  .work-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    filter: brightness(0.6);
+  }
+  .work-card:hover .work-thumb img { transform: scale(1.05); filter: brightness(0.45); }
+  .work-thumb-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    gap: 0.75rem;
+  }
+  .work-card:hover .work-thumb-overlay { opacity: 1; }
+  .view-site-btn {
+    background: var(--gold);
+    color: #080808;
+    padding: 0.7rem 1.75rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .view-site-btn:hover { background: var(--gold-light); transform: scale(1.03); }
+  .work-thumb-tag {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: rgba(8,8,8,0.8);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-radius: 100px;
+    backdrop-filter: blur(8px);
+    z-index: 2;
+  }
+  .work-info { padding: 1.5rem 2rem 2rem; }
+  .work-client {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+  .work-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .work-desc { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; line-height: 1.7; }
+
+  /* MODAL */
+  .site-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(8px);
+    flex-direction: column;
+    animation: fadeIn 0.25s ease;
+  }
+  .site-modal.open { display: flex; }
+  .modal-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.5rem;
+    background: #111;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .modal-dots { display: flex; gap: 6px; }
+  .modal-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .modal-url {
+    flex: 1;
+    background: #1A1A1A;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.35rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: monospace;
+    letter-spacing: 0.02em;
+  }
+  .modal-close {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .modal-close:hover { color: var(--gold); border-color: var(--gold); }
+  .modal-iframe-wrap {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+  .modal-iframe-wrap iframe {
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+  }
+
+  /* WHY US */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .why-list { display: flex; flex-direction: column; gap: 2rem; }
+  .why-item { display: flex; gap: 1.5rem; }
+  .why-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--gold);
+    opacity: 0.3;
+    min-width: 2.5rem;
+    line-height: 1;
+  }
+  .why-text h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .why-text p { font-size: 0.875rem; color: var(--text-muted); font-weight: 300; line-height: 1.75; }
+  .why-visual {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem;
+  }
+  .testimonial-quote {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+  .testimonial-quote em { font-style: normal; color: var(--gold); }
+  .testimonial-author { display: flex; gap: 1rem; align-items: center; }
+  .author-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--gold);
+  }
+  .author-name { font-family: 'Syne', sans-serif; font-size: 0.875rem; font-weight: 700; }
+  .author-role { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .stars { color: var(--gold); font-size: 0.7rem; margin-bottom: 1.5rem; letter-spacing: 0.2em; }
+
+  /* PRICING */
+  .pricing { background: var(--bg2); }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3.5rem;
+  }
+  .plan {
+    background: var(--bg2);
+    padding: 2.5rem;
+    position: relative;
+    transition: background 0.3s;
+  }
+  .plan.featured { background: var(--bg3); }
+  .plan.featured::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--gold);
+    color: #080808;
+    padding: 0.3rem 1rem;
+    font-size: 0.65rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 100px;
+  }
+  .plan-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .plan.featured .plan-name { color: var(--gold); }
+  .plan-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+    line-height: 1;
+  }
+  .plan-price sup { font-size: 1.2rem; font-weight: 400; color: var(--text-muted); }
+  .plan-price-note { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2rem; }
+  .plan-divider { height: 1px; background: var(--border); margin-bottom: 2rem; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 2.5rem; }
+  .plan-features li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 300;
+  }
+  .plan-features li::before {
+    content: '✓';
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.75rem;
+    min-width: 12px;
+  }
+  .plan-btn {
+    display: block;
+    text-align: center;
+    padding: 0.9rem;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+  .plan-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .plan.featured .plan-btn { background: var(--gold); color: #080808; border-color: var(--gold); }
+  .plan.featured .plan-btn:hover { background: var(--gold-light); }
+
+  /* CTA */
+  .cta-section {
+    background: var(--bg);
+    text-align: center;
+    padding: 8rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.3;
+  }
+  .cta-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 4.5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+  }
+  .cta-title em { font-style: normal; color: var(--gold); }
+  .cta-sub {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    position: relative;
+  }
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 4rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+  .footer-brand .logo { font-size: 1.2rem; margin-bottom: 1rem; text-decoration: none; }
+  .footer-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.75; font-weight: 300; max-width: 280px; }
+  .footer-col h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .footer-col ul a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--gold); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  .footer-bottom a { color: var(--gold); text-decoration: none; }
+  .ghana-flag {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+  }
+  .flag-stripe { width: 18px; height: 10px; border-radius: 1px; }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* GRID LINES BG */
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+</style>
+</head>
+<body class="grid-bg">
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-dot"></div>
+    Tech<span>Migos</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Start a Project</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🇬🇭 Based in Accra, Ghana</div>
+    <h1 class="hero-title">
+      Websites that<br>
+      <em>Win Business</em><br>
+      in Ghana.
+    </h1>
+    <p class="hero-sub">
+      We build premium, conversion-focused websites for Ghanaian businesses ready to dominate online — from sleek landing pages to full e-commerce platforms.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get a Free Quote</a>
+      <a href="#work" class="btn-ghost">See Our Work</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="card-bar">
+        <div class="card-dot" style="background:#FF5C57;"></div>
+        <div class="card-dot" style="background:#FFBD2E;"></div>
+        <div class="card-dot" style="background:#28CA41;"></div>
+        <div class="card-url">techmigos.com.gh</div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-header">
+          <div class="preview-logo">◆ YourBrand.gh</div>
+          <div class="preview-nav">
+            <span>About</span><span>Services</span><span>Contact</span>
+          </div>
+        </div>
+        <div class="preview-hero">Your Business,<br>Online & Growing.</div>
+        <div class="preview-sub">Beautiful, fast and built to convert your visitors into loyal customers.</div>
+        <span class="preview-btn">Get Started →</span>
+        <div class="preview-cards">
+          <div class="preview-card">
+            <div class="preview-card-icon">🌐</div>
+            <div class="preview-card-title">Web Design</div>
+            <div class="preview-card-text">Modern & responsive</div>
+          </div>
+          <div class="preview-card">
+            <div class="preview-card-icon">🛒</div>
+            <div class="preview-card-title">E-Commerce</div>
+            <div class="preview-card-text">Sell online easily</div>
+          </div>
+          <div class="preview-card">
+            <div class="preview-card-icon">📈</div>
+            <div class="preview-card-title">SEO Ready</div>
+            <div class="preview-card-text">Rank on Google</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">80+</span>
+          <span class="hero-stat-label">Sites Built</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">48hr</span>
+          <span class="hero-stat-label">First Draft</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">100%</span>
+          <span class="hero-stat-label">Satisfaction</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Web Design</span>
+    <span class="marquee-item">E-Commerce</span>
+    <span class="marquee-item">SEO Optimization</span>
+    <span class="marquee-item">Brand Identity</span>
+    <span class="marquee-item">Mobile-First</span>
+    <span class="marquee-item">Landing Pages</span>
+    <span class="marquee-item">Accra Ghana</span>
+    <span class="marquee-item">Corporate Sites</span>
+    <span class="marquee-item">Web Design</span>
+    <span class="marquee-item">E-Commerce</span>
+    <span class="marquee-item">SEO Optimization</span>
+    <span class="marquee-item">Brand Identity</span>
+    <span class="marquee-item">Mobile-First</span>
+    <span class="marquee-item">Landing Pages</span>
+    <span class="marquee-item">Accra Ghana</span>
+    <span class="marquee-item">Corporate Sites</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Everything your<br>business needs online.</h2>
+    </div>
+    <p class="section-sub">From your first website to a full digital transformation — we handle every layer of your web presence with precision.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">🌐</div>
+      <h3 class="service-name">Business Websites</h3>
+      <p class="service-desc">Clean, professional websites that represent your brand credibly and convert visitors into customers. Built fast, optimised for Ghana.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">🛒</div>
+      <h3 class="service-name">E-Commerce Stores</h3>
+      <p class="service-desc">Full online shops with product management, Mobile Money integration, and seamless checkout — ready to take orders from day one.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">📱</div>
+      <h3 class="service-name">Landing Pages</h3>
+      <p class="service-desc">High-converting single pages designed for campaigns, product launches, and lead generation. Built to perform on every device.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-icon">🔍</div>
+      <h3 class="service-name">SEO & Speed</h3>
+      <p class="service-desc">Every site we build is optimised to rank on Google and load fast — even on mobile networks across Ghana.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-icon">🎨</div>
+      <h3 class="service-name">Brand Identity</h3>
+      <p class="service-desc">Logos, colour systems, and visual language that make your business unmistakable — on screen and offline.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-icon">🛠️</div>
+      <h3 class="service-name">Maintenance & Hosting</h3>
+      <p class="service-desc">Ongoing support, updates, backups, and local hosting solutions so your site stays live, fast, and secure always.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="reveal">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">From idea to live<br>in days, not months.</h2>
+  </div>
+  <div class="process-steps reveal">
+    <div class="process-step">
+      <div class="step-circle">01</div>
+      <h3 class="step-title">Discovery Call</h3>
+      <p class="step-desc">We learn your business, goals, and what success looks like for you — usually 30 minutes.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">02</div>
+      <h3 class="step-title">Design & Strategy</h3>
+      <p class="step-desc">We craft your site's layout, visuals, and content structure — you see a draft within 48 hours.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">03</div>
+      <h3 class="step-title">Build & Refine</h3>
+      <p class="step-desc">We build the full site and refine based on your feedback until every detail is exactly right.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">04</div>
+      <h3 class="step-title">Launch & Grow</h3>
+      <p class="step-desc">We go live, hand you the keys, and stay available for support as your business grows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SITE MODAL -->
+<div class="site-modal" id="siteModal">
+  <div class="modal-bar">
+    <div class="modal-dots">
+      <div class="modal-dot" style="background:#FF5C57;"></div>
+      <div class="modal-dot" style="background:#FFBD2E;"></div>
+      <div class="modal-dot" style="background:#28CA41;"></div>
+    </div>
+    <div class="modal-url" id="modalUrl">loading...</div>
+    <button class="modal-close" onclick="closeModal()">✕ Close</button>
+  </div>
+  <div class="modal-iframe-wrap">
+    <iframe id="modalFrame"></iframe>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="reveal">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Built for Ghanaian<br>businesses like yours.</h2>
+  </div>
+  <div class="work-grid reveal">
+
+    <!-- NEXORA — SaaS / Sci-fi dark -->
+    <div class="work-card featured" onclick="openSite('kente')">
+      <div class="work-thumb">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80" alt="Nexora SaaS analytics dashboard" />
+        <div class="work-thumb-tag">SaaS / Tech</div>
+        <div class="work-thumb-overlay">
+          <button class="view-site-btn">View Website →</button>
+        </div>
+      </div>
+      <div class="work-info">
+        <div class="work-client">Nexora — nexora.io</div>
+        <div class="work-title">B2B analytics SaaS with sci-fi dark UI</div>
+        <div class="work-desc">Predictive analytics platform with real-time dashboards, pipeline builder, and a glassmorphic cyberpunk design system.</div>
+      </div>
+    </div>
+
+    <!-- VOLTA FITNESS — Brutalist maximalist -->
+    <div class="work-card" onclick="openSite('legal')">
+      <div class="work-thumb">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=700&q=80" alt="Volta Fitness gym website" />
+        <div class="work-thumb-tag">Fitness & Sport</div>
+        <div class="work-thumb-overlay">
+          <button class="view-site-btn">View Website →</button>
+        </div>
+      </div>
+      <div class="work-info">
+        <div class="work-client">Volta Fitness — voltafitness.com</div>
+        <div class="work-title">Bold brutalist gym brand with maximum impact</div>
+        <div class="work-desc">High-energy fitness brand in black, white and yellow — aggressive typography, ticker marquees, and a conversion-focused layout.</div>
+      </div>
+    </div>
+
+    <!-- PALME RESORT — Earthy organic luxury -->
+    <div class="work-card" onclick="openSite('fresh')">
+      <div class="work-thumb">
+        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80" alt="Palme Resort luxury hotel" />
+        <div class="work-thumb-tag">Hospitality</div>
+        <div class="work-thumb-overlay">
+          <button class="view-site-btn">View Website →</button>
+        </div>
+      </div>
+      <div class="work-info">
+        <div class="work-client">Palme Resort — palmeresort.com</div>
+        <div class="work-title">Luxury resort with earthy editorial design</div>
+        <div class="work-desc">Nature-distilled aesthetic using cream, bark and forest tones — serif typography, organic layouts, and a seamless booking experience.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="why-grid">
+    <div>
+      <div class="section-label reveal">Why Tech Migos</div>
+      <h2 class="section-title reveal">We build for<br>Ghana's market.</h2>
+      <div class="why-list reveal">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <div class="why-text">
+            <h3>Built for local conditions</h3>
+            <p>Sites optimised for mobile data speeds, Mobile Money payments, and Ghana's digital landscape — not just copied from abroad.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <div class="why-text">
+            <h3>Fast turnaround</h3>
+            <p>First drafts in 48 hours. Final delivery in 1–2 weeks. No waiting months while your competition moves ahead.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <div class="why-text">
+            <h3>Flat transparent pricing</h3>
+            <p>No hidden fees, no confusing retainers. You know exactly what you're paying and what you're getting.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <div class="why-text">
+            <h3>You own everything</h3>
+            <p>Full ownership of your website, code, and content from day one. Walk away any time — with everything.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual reveal">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <p class="testimonial-quote">"Tech Migos built our site in one week. We started getting enquiries <em>the same day we launched.</em>"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">AK</div>
+        <div>
+          <div class="author-name">Ama Kyei</div>
+          <div class="author-role">Founder, Kyei Textiles — Accra</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="reveal">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Simple pricing.<br>No surprises.</h2>
+    <p class="section-sub">All prices in Ghana Cedis. Pay in full or split into two instalments.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="plan">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price"><sup>₵</sup>1,500</div>
+      <div class="plan-price-note">One-time payment</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>5-page professional website</li>
+        <li>Mobile responsive design</li>
+        <li>Contact form integration</li>
+        <li>Basic SEO setup</li>
+        <li>1 month free support</li>
+        <li>Delivered in 7 days</li>
+      </ul>
+      <a href="#contact" class="plan-btn">Get Started</a>
+    </div>
+    <div class="plan featured">
+      <div class="plan-name">Growth</div>
+      <div class="plan-price"><sup>₵</sup>3,200</div>
+      <div class="plan-price-note">One-time payment</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Up to 15 pages</li>
+        <li>Custom UI/UX design</li>
+        <li>Blog or news section</li>
+        <li>Full SEO optimisation</li>
+        <li>Google Analytics setup</li>
+        <li>3 months free support</li>
+        <li>Delivered in 10 days</li>
+      </ul>
+      <a href="#contact" class="plan-btn">Get Started</a>
+    </div>
+    <div class="plan">
+      <div class="plan-name">E-Commerce</div>
+      <div class="plan-price"><sup>₵</sup>5,800</div>
+      <div class="plan-price-note">One-time payment</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Full online store</li>
+        <li>Mobile Money checkout</li>
+        <li>Product management dashboard</li>
+        <li>Order tracking system</li>
+        <li>Inventory management</li>
+        <li>6 months free support</li>
+        <li>Delivered in 14 days</li>
+      </ul>
+      <a href="#contact" class="plan-btn">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2 class="cta-title reveal">Ready to take your<br>business <em>online?</em></h2>
+  <p class="cta-sub reveal">Let's talk. Free consultation, no pressure.</p>
+  <div class="cta-actions reveal">
+    <a href="https://wa.me/233560239402" class="btn-primary">WhatsApp Us Now</a>
+    <a href="mailto:damienbaah020@gmail.com" class="btn-ghost">Send an Email</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="#">
+        <div class="logo-dot"></div>
+        Tech<span>Migos</span>
+      </a>
+      <p class="footer-desc">Premium web design for Ghanaian businesses. We build websites that look good, load fast, and bring in customers.</p>
+      <br>
+      <div class="ghana-flag">
+        <div class="flag-stripe" style="background:#006B3F;"></div>
+        <div class="flag-stripe" style="background:#FCD116;"></div>
+        <div class="flag-stripe" style="background:#CE1126;"></div>
+        <span style="font-size:0.75rem;color:var(--text-muted);margin-left:6px;">Proudly Ghanaian</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Business Websites</a></li>
+        <li><a href="#">E-Commerce</a></li>
+        <li><a href="#">Landing Pages</a></li>
+        <li><a href="#">SEO & Speed</a></li>
+        <li><a href="#">Brand Identity</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Work</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Accra, Ghana</a></li>
+        <li><a href="mailto:damienbaah020@gmail.com">damienbaah020@gmail.com</a></li>
+        <li><a href="tel:+233560239402">+233 560 239 402</a></li>
+        <li><a href="https://wa.me/233560239402" target="_blank">WhatsApp Us</a></li>
+        <li><a href="https://instagram.com/lil_rexon" target="_blank">Instagram @lil_rexon</a></li>
+        <li><a href="https://snapchat.com/add/damienbaah14" target="_blank">Snapchat @damienbaah14</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Tech Migos. All rights reserved.</span>
+    <span>Built with 🖤 in <a href="#">Accra, Ghana</a></span>
+  </div>
+</footer>
+
+
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+  function animateRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
+  animateRing();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { ring.style.width = '56px'; ring.style.height = '56px'; cursor.style.transform = 'translate(-50%, -50%) scale(0.5)'; });
+    el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; cursor.style.transform = 'translate(-50%, -50%) scale(1)'; });
+  });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 60 ? 'rgba(8,8,8,0.95)' : 'rgba(8,8,8,0.7)';
+  });
+
+  const sites = {
+    kente: { url: 'kenteandco.com.gh', html: "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap\" rel=\"stylesheet\">\n<style>\n*{margin:0;padding:0;box-sizing:border-box}\n:root{\n  --bg:#080808;\n  --bg2:#0F0F0F;\n  --bg3:#161616;\n  --line:rgba(255,255,255,0.07);\n  --line2:rgba(255,255,255,0.12);\n  --text:#F0EDE8;\n  --muted:rgba(240,237,232,0.45);\n  --dim:rgba(240,237,232,0.18);\n  --gold:#C9A84C;\n}\nhtml{scroll-behavior:smooth}\nbody{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}\na{color:inherit;text-decoration:none}\n\n/* \u2500\u2500 NAV \u2500\u2500 */\nnav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:60px;background:rgba(8,8,8,0.88);border-bottom:1px solid var(--line);backdrop-filter:blur(20px)}\n.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:0.12em;text-transform:uppercase}\n.logo span{color:var(--gold)}\n.nl{display:flex;gap:2.5rem;list-style:none}\n.nl a{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color 0.2s}\n.nl a:hover{color:var(--text)}\n.n-cta{background:transparent;border:1px solid var(--line2);color:var(--text);padding:0.5rem 1.25rem;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;transition:border-color 0.2s,color 0.2s}\n.n-cta:hover{border-color:var(--gold);color:var(--gold)}\n\n/* \u2500\u2500 HERO \u2500\u2500 */\n.hero{position:relative;height:100vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}\n.hero-bg{position:absolute;inset:0}\n.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:brightness(0.45)}\n.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.95) 0%,rgba(8,8,8,0.3) 50%,transparent 100%)}\n.hero-content{position:relative;z-index:1;padding:0 3rem 4rem}\n.hero-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem}\n.hero-label::before{content:'';width:28px;height:1px;background:var(--gold)}\nh1{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:800;line-height:0.9;letter-spacing:-0.03em;margin-bottom:2rem;text-transform:uppercase}\nh1 em{font-style:normal;-webkit-text-stroke:1px rgba(240,237,232,0.5);color:transparent}\n.hero-meta{display:grid;grid-template-columns:repeat(4,auto) 1fr;gap:0;border-top:1px solid var(--line);padding-top:1.5rem;align-items:center}\n.h-stat{padding-right:2.5rem;border-right:1px solid var(--line)}\n.h-stat:last-of-type{border-right:none}\n.h-stat-num{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;line-height:1;color:var(--text)}\n.h-stat-label{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem}\n.hero-cta{display:flex;gap:1rem;justify-content:flex-end}\n.btn-p{background:var(--text);color:var(--bg);padding:0.85rem 2rem;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;transition:background 0.2s}\n.btn-p:hover{background:var(--gold)}\n.btn-g{background:transparent;color:var(--text);padding:0.85rem 2rem;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--line2);cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;transition:border-color 0.2s}\n.btn-g:hover{border-color:var(--text)}\n\n/* \u2500\u2500 MARQUEE \u2500\u2500 */\n.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:0.85rem 0;overflow:hidden;background:var(--bg)}\n.m-track{display:flex;gap:0;width:max-content;animation:mar 22s linear infinite}\n@keyframes mar{from{transform:translateX(0)}to{transform:translateX(-50%)}}\n.m-item{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);padding:0 2.5rem;border-right:1px solid var(--line);white-space:nowrap;display:flex;align-items:center}\n.m-item.accent{color:var(--gold)}\n\n/* \u2500\u2500 COLLECTION INTRO \u2500\u2500 */\n.intro{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--line)}\n.intro-text{padding:5rem 3rem;border-right:1px solid var(--line)}\n.intro-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:flex;align-items:center;gap:0.75rem}\n.intro-label::before{content:'';width:20px;height:1px;background:var(--gold)}\nh2{font-family:'Syne',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.75rem}\nh2 em{font-style:italic;color:var(--gold)}\n.intro-body{font-size:0.88rem;line-height:1.85;color:var(--muted);max-width:400px;font-weight:300}\n.intro-specs{padding:5rem 3rem;display:flex;flex-direction:column;justify-content:center;gap:0}\n.spec-row{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0;border-bottom:1px solid var(--line)}\n.spec-row:first-child{border-top:1px solid var(--line)}\n.spec-key{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}\n.spec-val{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:600;letter-spacing:0.04em}\n\n/* \u2500\u2500 COLLECTION GRID \u2500\u2500 */\n.collection{padding:5rem 3rem;background:var(--bg)}\n.col-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}\n.view-all{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:color 0.2s;display:flex;align-items:center;gap:0.5rem}\n.view-all:hover{color:var(--text)}\n.view-all::after{content:'\u2192';transition:transform 0.2s}\n.view-all:hover::after{transform:translateX(4px)}\n.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}\n.card{background:var(--bg);overflow:hidden;position:relative;cursor:pointer}\n.card-img{position:relative;overflow:hidden;aspect-ratio:3/4}\n.card-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);transition:transform 0.6s ease,filter 0.4s ease}\n.card:hover .card-img img{transform:scale(1.05);filter:brightness(0.7)}\n.card-tag{position:absolute;top:1rem;left:1rem;background:rgba(8,8,8,0.7);border:1px solid var(--line2);backdrop-filter:blur(8px);padding:0.28rem 0.7rem;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text)}\n.card-tag.gold{border-color:var(--gold);color:var(--gold)}\n.card-info{padding:1.25rem 0;border-top:1px solid var(--line)}\n.card-name{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:600;margin-bottom:0.2rem;letter-spacing:0.02em}\n.card-sub{font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem}\n.card-footer{display:flex;justify-content:space-between;align-items:center}\n.card-price{font-size:0.88rem;font-weight:500}\n.card-add{background:transparent;border:1px solid var(--line2);color:var(--muted);padding:0.4rem 0.85rem;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:border-color 0.2s,color 0.2s}\n.card:hover .card-add{border-color:var(--gold);color:var(--gold)}\n\n/* \u2500\u2500 EDITORIAL BANNER \u2500\u2500 */\n.banner{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}\n.b-visual{position:relative;overflow:hidden}\n.b-visual img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease}\n.banner:hover .b-visual img{transform:scale(1.03)}\n.b-content{background:var(--bg2);padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--line)}\n.b-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:flex;align-items:center;gap:0.75rem}\n.b-label::before{content:'';width:20px;height:1px;background:var(--gold)}\n.b-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:700;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.5rem;text-transform:uppercase}\n.b-title em{font-style:normal;-webkit-text-stroke:1px rgba(240,237,232,0.4);color:transparent}\n.b-body{font-size:0.85rem;line-height:1.85;color:var(--muted);font-weight:300;max-width:360px;margin-bottom:2.5rem}\n.b-detail{display:flex;flex-direction:column;gap:0.8rem;border-top:1px solid var(--line);padding-top:1.75rem;margin-bottom:2.5rem}\n.b-row{display:flex;justify-content:space-between;font-size:0.75rem}\n.b-row-key{color:var(--muted);letter-spacing:0.06em}\n.b-row-val{font-weight:500;color:var(--text)}\n\n/* \u2500\u2500 TRUST BAR \u2500\u2500 */\n.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--bg2);border-top:1px solid var(--line)}\n.t-cell{padding:2rem;border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.6rem;transition:background 0.2s}\n.t-cell:last-child{border-right:none}\n.t-cell:hover{background:var(--bg3)}\n.t-icon{font-size:1.4rem;margin-bottom:0.2rem}\n.t-title{font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase}\n.t-desc{font-size:0.7rem;color:var(--muted)}\n\n/* \u2500\u2500 FOOTER \u2500\u2500 */\nfooter{padding:2rem 3rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}\n.f-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;letter-spacing:0.12em;text-transform:uppercase}\n.f-logo span{color:var(--gold)}\n.f-links{display:flex;gap:2rem}\n.f-links a{font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);transition:color 0.2s}\n.f-links a:hover{color:var(--text)}\n.f-note{font-size:0.65rem;color:var(--dim)}\n</style></head><body>\n\n<nav>\n  <div class=\"logo\">Kente <span>&</span> Co</div>\n  <ul class=\"nl\">\n    <li><a href=\"#\">New In</a></li>\n    <li><a href=\"#\">Women</a></li>\n    <li><a href=\"#\">Men</a></li>\n    <li><a href=\"#\">Traditional</a></li>\n    <li><a href=\"#\">Sale</a></li>\n  </ul>\n  <button class=\"n-cta\">Cart (0)</button>\n</nav>\n\n<div class=\"hero\">\n  <div class=\"hero-bg\">\n    <img src=\"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=1400&q=90\" alt=\"Kente & Co Collection\"/>\n  </div>\n  <div class=\"hero-content\">\n    <div class=\"hero-label\">SS 2025 Collection \u2014 Accra, Ghana</div>\n    <h1>Wear<br>Your<br><em>Culture.</em></h1>\n    <div class=\"hero-meta\">\n      <div class=\"h-stat\" style=\"padding-left:0;padding-right:2.5rem\">\n        <div class=\"h-stat-num\">200+</div>\n        <div class=\"h-stat-label\">Styles in Stock</div>\n      </div>\n      <div class=\"h-stat\" style=\"padding-left:2.5rem;padding-right:2.5rem\">\n        <div class=\"h-stat-num\">48hr</div>\n        <div class=\"h-stat-label\">Delivery</div>\n      </div>\n      <div class=\"h-stat\" style=\"padding-left:2.5rem;padding-right:2.5rem\">\n        <div class=\"h-stat-num\">100%</div>\n        <div class=\"h-stat-label\">Handcrafted</div>\n      </div>\n      <div class=\"h-stat\" style=\"padding-left:2.5rem;padding-right:0;border-right:none\">\n        <div class=\"h-stat-num\">MoMo</div>\n        <div class=\"h-stat-label\">Payments</div>\n      </div>\n      <div class=\"hero-cta\">\n        <button class=\"btn-p\" onclick=\"document.querySelector('.collection').scrollIntoView({behavior:'smooth'})\">Shop Collection</button>\n        <button class=\"btn-g\">View Lookbook</button>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"marquee\">\n  <div class=\"m-track\">\n    <span class=\"m-item\">Kente Prints</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">Ankara Styles</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">Made in Ghana</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">Free Returns</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">MoMo Payments</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">200+ Styles</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">Kente Prints</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">Ankara Styles</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">Made in Ghana</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">Free Returns</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">MoMo Payments</span>\n    <span class=\"m-item accent\">\u2726</span>\n    <span class=\"m-item\">200+ Styles</span>\n    <span class=\"m-item accent\">\u2726</span>\n  </div>\n</div>\n\n<div class=\"intro\">\n  <div class=\"intro-text\">\n    <div class=\"intro-label\">About the Collection</div>\n    <h2>Rooted in <em>Heritage.</em><br>Built for Today.</h2>\n    <p class=\"intro-body\">Each piece in our SS 2025 collection draws from centuries of Ghanaian textile tradition \u2014 kente weaves from Ashanti artisans, Ankara prints from the coastal workshops of Accra, and contemporary silhouettes shaped for modern life. This is not fashion inspired by Africa. This is Africa, fashioned.</p>\n  </div>\n  <div class=\"intro-specs\">\n    <div class=\"spec-row\"><span class=\"spec-key\">Season</span><span class=\"spec-val\">Spring / Summer 2025</span></div>\n    <div class=\"spec-row\"><span class=\"spec-key\">Origin</span><span class=\"spec-val\">Accra &amp; Kumasi, Ghana</span></div>\n    <div class=\"spec-row\"><span class=\"spec-key\">Materials</span><span class=\"spec-val\">Kente, Ankara, Cotton</span></div>\n    <div class=\"spec-row\"><span class=\"spec-key\">Artisans</span><span class=\"spec-val\">40+ Ghanaian Weavers</span></div>\n    <div class=\"spec-row\"><span class=\"spec-key\">Delivery</span><span class=\"spec-val\">Nationwide \u00b7 48hr Accra</span></div>\n    <div class=\"spec-row\"><span class=\"spec-key\">Payment</span><span class=\"spec-val\">MTN MoMo \u00b7 Vodafone Cash</span></div>\n    <div class=\"spec-row\"><span class=\"spec-key\">Returns</span><span class=\"spec-val\">14-Day Free Returns</span></div>\n  </div>\n</div>\n\n<div class=\"collection\">\n  <div class=\"col-head\">\n    <div>\n      <div class=\"intro-label\" style=\"margin-bottom:0.6rem\">Current Drop</div>\n      <h2 style=\"font-size:1.6rem;margin-bottom:0\">New Arrivals</h2>\n    </div>\n    <a class=\"view-all\" href=\"#\">View Full Collection</a>\n  </div>\n  <div class=\"grid\">\n\n    <div class=\"card\">\n      <div class=\"card-img\">\n        <img src=\"https://images.unsplash.com/photo-1590735213920-68192a487bc2?w=600&q=85\" alt=\"Kente Dress\"/>\n        <span class=\"card-tag gold\">New In</span>\n      </div>\n      <div class=\"card-info\">\n        <div class=\"card-name\">Royal Kente Wrap Dress</div>\n        <div class=\"card-sub\">Ashanti Weave \u00b7 Sizes XS\u2013XL</div>\n        <div class=\"card-footer\">\n          <div class=\"card-price\">\u20b5 380</div>\n          <button class=\"card-add\">+ Add to Cart</button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card\">\n      <div class=\"card-img\">\n        <img src=\"https://images.unsplash.com/photo-1558171813-3a3668e3d9d1?w=600&q=85\" alt=\"Ankara Set\"/>\n        <span class=\"card-tag\">Bestseller</span>\n      </div>\n      <div class=\"card-info\">\n        <div class=\"card-name\">Ankara Power Coord</div>\n        <div class=\"card-sub\">Coastal Print \u00b7 Sizes XS\u2013XXL</div>\n        <div class=\"card-footer\">\n          <div class=\"card-price\">\u20b5 295</div>\n          <button class=\"card-add\">+ Add to Cart</button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card\">\n      <div class=\"card-img\">\n        <img src=\"https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85\" alt=\"Heritage Gown\"/>\n      </div>\n      <div class=\"card-info\">\n        <div class=\"card-name\">Asante Heritage Gown</div>\n        <div class=\"card-sub\">Full Kente \u00b7 One Size Fits</div>\n        <div class=\"card-footer\">\n          <div class=\"card-price\">\u20b5 520</div>\n          <button class=\"card-add\">+ Add to Cart</button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card\">\n      <div class=\"card-img\">\n        <img src=\"https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=85\" alt=\"Kente Suit\"/>\n        <span class=\"card-tag gold\">Sale \u221230%</span>\n      </div>\n      <div class=\"card-info\">\n        <div class=\"card-name\">Gold-Woven Kente Suit</div>\n        <div class=\"card-sub\">Men's Collection \u00b7 S\u2013XXXL</div>\n        <div class=\"card-footer\">\n          <div class=\"card-price\"><span style=\"text-decoration:line-through;color:var(--dim);font-size:0.75rem;margin-right:0.4rem\">\u20b5 650</span>\u20b5 455</div>\n          <button class=\"card-add\">+ Add to Cart</button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card\">\n      <div class=\"card-img\">\n        <img src=\"https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=600&q=85\" alt=\"Bogolan Set\"/>\n      </div>\n      <div class=\"card-info\">\n        <div class=\"card-name\">Bogolan Earth Dress</div>\n        <div class=\"card-sub\">Handpainted Clay Dye \u00b7 S\u2013XL</div>\n        <div class=\"card-footer\">\n          <div class=\"card-price\">\u20b5 340</div>\n          <button class=\"card-add\">+ Add to Cart</button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card\">\n      <div class=\"card-img\">\n        <img src=\"https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=85\" alt=\"Ceremonial\"/>\n        <span class=\"card-tag\">Limited</span>\n      </div>\n      <div class=\"card-info\">\n        <div class=\"card-name\">Ceremonial Kente Set</div>\n        <div class=\"card-sub\">Hand-Loomed \u00b7 Bespoke Sizes</div>\n        <div class=\"card-footer\">\n          <div class=\"card-price\">\u20b5 890</div>\n          <button class=\"card-add\">+ Add to Cart</button>\n        </div>\n      </div>\n    </div>\n\n  </div>\n</div>\n\n<div class=\"banner\">\n  <div class=\"b-visual\">\n    <img src=\"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=900&q=85\" alt=\"MoMo Banner\"/>\n  </div>\n  <div class=\"b-content\">\n    <div class=\"b-label\">Seamless Checkout</div>\n    <div class=\"b-title\">Pay With<br><em>Mobile</em><br>Money.</div>\n    <p class=\"b-body\">No cards, no hassle. Check out instantly with MTN Mobile Money, Vodafone Cash, or AirtelTigo Money. Your order confirmed in seconds.</p>\n    <div class=\"b-detail\">\n      <div class=\"b-row\"><span class=\"b-row-key\">Supported Networks</span><span class=\"b-row-val\">MTN \u00b7 Vodafone \u00b7 Airtel</span></div>\n      <div class=\"b-row\"><span class=\"b-row-key\">Processing Time</span><span class=\"b-row-val\">Under 10 seconds</span></div>\n      <div class=\"b-row\"><span class=\"b-row-key\">Delivery (Accra)</span><span class=\"b-row-val\">48 hours guaranteed</span></div>\n      <div class=\"b-row\"><span class=\"b-row-key\">Returns</span><span class=\"b-row-val\">Free, 14-day window</span></div>\n    </div>\n    <button class=\"btn-p\" style=\"width:fit-content\">Start Shopping \u2192</button>\n  </div>\n</div>\n\n<div class=\"trust\">\n  <div class=\"t-cell\">\n    <div class=\"t-icon\">\ud83d\udce6</div>\n    <div class=\"t-title\">Free Delivery</div>\n    <div class=\"t-desc\">On orders above \u20b5200 nationwide</div>\n  </div>\n  <div class=\"t-cell\">\n    <div class=\"t-icon\">\ud83d\udcf1</div>\n    <div class=\"t-title\">MoMo Checkout</div>\n    <div class=\"t-desc\">MTN \u00b7 Vodafone \u00b7 AirtelTigo</div>\n  </div>\n  <div class=\"t-cell\">\n    <div class=\"t-icon\">\u21a9\ufe0f</div>\n    <div class=\"t-title\">Easy Returns</div>\n    <div class=\"t-desc\">14-day free return policy</div>\n  </div>\n  <div class=\"t-cell\">\n    <div class=\"t-icon\">\ud83d\udee1\ufe0f</div>\n    <div class=\"t-title\">100% Authentic</div>\n    <div class=\"t-desc\">Handcrafted by Ghanaian artisans</div>\n  </div>\n</div>\n\n<footer>\n  <div class=\"f-logo\">Kente <span>&</span> Co</div>\n  <div class=\"f-links\">\n    <a href=\"#\">Instagram</a>\n    <a href=\"#\">Collections</a>\n    <a href=\"#\">About</a>\n    <a href=\"#\">Contact</a>\n  </div>\n  <div class=\"f-note\">\u00a9 2025 Kente &amp; Co \u2014 Accra, Ghana \u00b7 Built by Tech Migos</div>\n</footer>\n\n</body></html>" },
+    legal: { url: 'goldfieldslegal.com.gh', html: "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap\" rel=\"stylesheet\"><style>*{margin:0;padding:0;box-sizing:border-box}:root{--cr:#F9F4EC;--ink:#0E0C08;--go:#A8895A;--mu:#7A7568;--li:rgba(14,12,8,.1)}body{font-family:'DM Sans',sans-serif;background:var(--cr);color:var(--ink);overflow-x:hidden}a{color:inherit;text-decoration:none}nav{display:flex;align-items:center;justify-content:space-between;padding:0 4rem;height:72px;border-bottom:1px solid var(--li);position:sticky;top:0;background:rgba(249,244,236,.94);z-index:100;backdrop-filter:blur(10px)}.ln{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;letter-spacing:.04em}.ls{font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mu);margin-top:2px}.nl{display:flex;gap:3rem;list-style:none}.nl a{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:400;transition:color .2s}.nl a:hover{color:var(--ink)}.nc{background:var(--ink);color:var(--cr);padding:.65rem 1.8rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}.nc:hover{background:#2A2A20}.hero{display:grid;grid-template-columns:1fr 1fr;min-height:92vh}.hc{padding:6rem 4rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--li)}.ey{font-size:.64rem;letter-spacing:.25em;text-transform:uppercase;color:var(--go);margin-bottom:2.5rem;display:flex;align-items:center;gap:1rem}.ey::before{content:'';width:30px;height:1px;background:var(--go)}h1{font-family:'Cormorant Garamond',serif;font-size:5.2rem;font-weight:300;line-height:.9;letter-spacing:-.02em;margin-bottom:2rem}h1 em{font-style:italic;color:var(--go)}.hs{font-size:.87rem;line-height:1.9;color:var(--mu);max-width:390px;margin-bottom:3rem;font-weight:300}.ha{display:flex;gap:1.5rem;align-items:center}.bp{background:var(--ink);color:var(--cr);padding:1.1rem 2.5rem;font-size:.71rem;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}.bp:hover{background:#2A2A20}.bt{font-size:.71rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);cursor:pointer;border-bottom:1px solid var(--li);padding-bottom:2px;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif}.bt:hover{color:var(--ink)}.hv{position:relative;overflow:hidden}.hv img{width:100%;height:100%;object-fit:cover;display:block;filter:sepia(.07) contrast(1.04)}.hsr{position:absolute;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr 1fr;background:rgba(249,244,236,.92);backdrop-filter:blur(12px);border-top:1px solid var(--li)}.hs2{padding:1.5rem;border-right:1px solid var(--li);text-align:center}.hs2:last-child{border-right:none}.hsn{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:600;line-height:1;color:var(--ink)}.hsl{font-size:.59rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-top:.3rem}.prac{padding:6rem 4rem}.sh{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:end;margin-bottom:5rem;padding-bottom:2rem;border-bottom:1px solid var(--li)}.se{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--go);margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}.se::before{content:'';width:18px;height:1px;background:var(--go)}h2{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;line-height:1.05;letter-spacing:-.01em}h2 em{font-style:italic}.sp{color:var(--mu);font-size:.84rem;line-height:1.9;font-weight:300;max-width:410px}.pl{display:flex;flex-direction:column}.pi{display:grid;grid-template-columns:3rem 1fr auto;gap:2rem;align-items:start;padding:1.75rem 0;border-bottom:1px solid var(--li);cursor:pointer;transition:padding-left .3s}.pi:hover{padding-left:1rem}.pi:first-child{border-top:1px solid var(--li)}.pnum{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-weight:600;color:var(--go);padding-top:4px}.pc2 h3{font-family:'Cormorant Garamond',serif;font-size:1.28rem;font-weight:600;margin-bottom:.3rem}.pc2 p{font-size:.78rem;color:var(--mu);line-height:1.75;font-weight:300;max-width:490px}.par{font-size:1.1rem;color:rgba(14,12,8,.18);transition:color .2s,transform .2s;padding-top:4px}.pi:hover .par{color:var(--go);transform:translateX(4px)}.team{background:var(--ink);color:var(--cr);padding:6rem 4rem}.team .se{color:var(--go)}.team h2{color:var(--cr);margin-bottom:4rem}.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05);margin-top:4rem}.mb{background:var(--ink);overflow:hidden}.mi{height:340px;overflow:hidden}.mi img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(.15) brightness(.87);transition:transform .5s}.mb:hover .mi img{transform:scale(1.04)}.minfo{padding:1.75rem;border-top:1px solid rgba(255,255,255,.07)}.mn{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;margin-bottom:.2rem}.mt{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--go);margin-bottom:.4rem}.ms{font-size:.74rem;color:rgba(249,244,236,.38);font-weight:300}.cta{background:var(--go);padding:5rem 4rem;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center}.ct{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--cr);line-height:1.1}.ct em{font-style:italic}.cb{background:var(--cr);color:var(--ink);padding:1.2rem 3rem;font-size:.71rem;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}footer{padding:2.5rem 4rem;border-top:1px solid var(--li);display:flex;justify-content:space-between;align-items:center}.fl{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;letter-spacing:.04em}.fn{font-size:.68rem;color:var(--mu);font-weight:300}</style></head><body><nav><div><div class=\"ln\">Goldfields Legal</div><div class=\"ls\">Advocates &amp; Solicitors \u00b7 Est. 2008</div></div><ul class=\"nl\"><li><a href=\"#\">Practice Areas</a></li><li><a href=\"#\">Our Team</a></li><li><a href=\"#\">Insights</a></li><li><a href=\"#\">Contact</a></li></ul><button class=\"nc\">Book Consultation</button></nav><div class=\"hero\"><div class=\"hc\"><div class=\"ey\">Kumasi, Ghana \u00b7 Since 2008</div><h1>Law.<br>With <em>Integrity.</em><br>Always.</h1><p class=\"hs\">Ghana's most trusted legal practice. From landmark corporate transactions to sensitive personal matters \u2014 we bring precision, discretion, and excellence to every case.</p><div class=\"ha\"><button class=\"bp\">Schedule Consultation</button><button class=\"bt\">View Practice Areas</button></div></div><div class=\"hv\"><img src=\"https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=900&q=85\" alt=\"Goldfields Legal\"/><div class=\"hsr\"><div class=\"hs2\"><div class=\"hsn\">17+</div><div class=\"hsl\">Years of Practice</div></div><div class=\"hs2\"><div class=\"hsn\">1,200</div><div class=\"hsl\">Cases Resolved</div></div><div class=\"hs2\"><div class=\"hsn\">98%</div><div class=\"hsl\">Client Satisfaction</div></div></div></div></div><div class=\"prac\"><div class=\"sh\"><div><div class=\"se\">What We Do</div><h2>Areas of <em>Practice</em></h2></div><p class=\"sp\">Our team of senior advocates brings deep expertise across the full spectrum of Ghanaian law \u2014 from the boardroom to the courtroom.</p></div><div class=\"pl\"><div class=\"pi\"><span class=\"pnum\">01</span><div class=\"pc2\"><h3>Corporate &amp; Commercial Law</h3><p>Company formation, mergers, acquisitions, joint ventures, shareholder agreements, and all aspects of commercial transactions.</p></div><span class=\"par\">\u2192</span></div><div class=\"pi\"><span class=\"pnum\">02</span><div class=\"pc2\"><h3>Litigation &amp; Dispute Resolution</h3><p>Representing clients across all court levels \u2014 High Court, Court of Appeal, and the Supreme Court of Ghana.</p></div><span class=\"par\">\u2192</span></div><div class=\"pi\"><span class=\"pnum\">03</span><div class=\"pc2\"><h3>Real Estate &amp; Property Law</h3><p>Land acquisition, title registration, lease negotiations, and resolution of land disputes across Ghana.</p></div><span class=\"par\">\u2192</span></div><div class=\"pi\"><span class=\"pnum\">04</span><div class=\"pc2\"><h3>Family &amp; Private Client</h3><p>Divorce proceedings, custody, inheritance, estate planning, and wills for Ghanaian families and diaspora.</p></div><span class=\"par\">\u2192</span></div><div class=\"pi\"><span class=\"pnum\">05</span><div class=\"pc2\"><h3>Immigration &amp; Residency</h3><p>Work permits, residency permits, citizenship applications, and immigration advisory for individuals and multinationals.</p></div><span class=\"par\">\u2192</span></div></div></div><div class=\"team\"><div class=\"se\">Our People</div><h2 style=\"color:var(--cr)\">Meet the <em style=\"color:var(--go)\">Partners</em></h2><div class=\"tg\"><div class=\"mb\"><div class=\"mi\"><img src=\"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&q=80\" alt=\"Kwame\"/></div><div class=\"minfo\"><div class=\"mn\">Kwame Asante</div><div class=\"mt\">Senior Partner \u2014 Corporate</div><div class=\"ms\">20 years of practice</div></div></div><div class=\"mb\"><div class=\"mi\"><img src=\"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&q=80\" alt=\"Abena\"/></div><div class=\"minfo\"><div class=\"mn\">Abena Osei-Mensah</div><div class=\"mt\">Partner \u2014 Litigation</div><div class=\"ms\">14 years of practice</div></div></div><div class=\"mb\"><div class=\"mi\"><img src=\"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80\" alt=\"Kofi\"/></div><div class=\"minfo\"><div class=\"mn\">Kofi Boateng</div><div class=\"mt\">Partner \u2014 Property Law</div><div class=\"ms\">11 years of practice</div></div></div></div></div><div class=\"cta\"><div class=\"ct\">Ready to discuss <em>your matter?</em></div><button class=\"cb\">Book a Free Consultation \u2192</button></div><footer><div class=\"fl\">Goldfields Legal</div><div class=\"fn\">\u00a9 2025 Goldfields Legal \u00b7 Kumasi, Ghana \u00b7 Built by Tech Migos</div></footer></body></html>" },
+    fresh: { url: 'freshboxghana.com.gh', html: "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link href=\"https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap\" rel=\"stylesheet\"><style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#071A0A;--li:#BCEF5A;--l2:#D4F87A;--wh:rgba(255,255,255,.88);--mu:rgba(255,255,255,.42);--gl:rgba(255,255,255,.07);--gb:rgba(255,255,255,.09)}body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--wh);overflow-x:hidden;min-height:100vh}body::before{content:'';position:fixed;top:-25%;left:-15%;width:650px;height:650px;background:radial-gradient(ellipse,rgba(50,140,30,.16) 0%,transparent 65%);pointer-events:none;z-index:0}body::after{content:'';position:fixed;bottom:-15%;right:-8%;width:500px;height:500px;background:radial-gradient(ellipse,rgba(90,180,40,.09) 0%,transparent 65%);pointer-events:none;z-index:0}a{color:inherit;text-decoration:none}nav{display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:66px;border-bottom:1px solid var(--gb);position:sticky;top:0;background:rgba(7,26,10,.75);z-index:100;backdrop-filter:blur(20px)}.logo{font-weight:800;font-size:1.1rem;display:flex;align-items:center;gap:.5rem}.lr{width:26px;height:26px;border-radius:50%;background:var(--li);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#071A0A;font-weight:900}.nl{display:flex;gap:2.5rem;list-style:none}.nl a{font-size:.79rem;font-weight:500;color:var(--mu);transition:color .2s}.nl a:hover{color:var(--wh)}.nc{background:var(--li);color:#071A0A;padding:.57rem 1.4rem;border-radius:100px;font-size:.79rem;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .2s,transform .15s}.nc:hover{background:var(--l2);transform:scale(1.03)}.hero{padding:5.5rem 3rem 3.5rem;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;min-height:88vh}.hb{display:inline-flex;align-items:center;gap:.5rem;background:var(--gl);border:1px solid var(--gb);backdrop-filter:blur(10px);padding:.47rem 1rem;border-radius:100px;font-size:.7rem;font-weight:600;color:var(--li);margin-bottom:1.75rem}.bd{width:7px;height:7px;background:var(--li);border-radius:50%;animation:blink 2s ease-in-out infinite}@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}h1{font-size:3.9rem;font-weight:800;line-height:1.0;letter-spacing:-.03em;margin-bottom:1.4rem}.lime{color:var(--li)}.hs{font-size:.9rem;line-height:1.85;color:var(--mu);max-width:400px;margin-bottom:2.25rem;font-weight:400}.ha{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:2.75rem}.bm{background:var(--li);color:#071A0A;padding:.95rem 2.1rem;border-radius:100px;font-size:.85rem;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .2s,transform .15s;box-shadow:0 0 28px rgba(188,239,90,.22)}.bm:hover{background:var(--l2);transform:scale(1.04)}.bg{background:var(--gl);color:var(--wh);padding:.95rem 1.9rem;border-radius:100px;font-size:.85rem;font-weight:600;border:1px solid var(--gb);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;backdrop-filter:blur(10px);transition:background .2s}.bg:hover{background:rgba(255,255,255,.1)}.tr{display:flex;gap:1.75rem;flex-wrap:wrap}.tc{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--mu);font-weight:500}.tc::before{content:'\u2713';color:var(--li);font-weight:700;font-size:.77rem}.hv{position:relative}.mc{background:var(--gl);border:1px solid var(--gb);border-radius:18px;overflow:hidden;backdrop-filter:blur(18px)}.mc img{width:100%;height:400px;object-fit:cover;display:block;border-radius:14px 14px 0 0}.cb{padding:1.4rem;background:rgba(7,26,10,.55);backdrop-filter:blur(18px)}.cr{display:flex;justify-content:space-between;align-items:center}.ctit{font-weight:700;font-size:.9rem;margin-bottom:.17rem}.csub{font-size:.7rem;color:var(--mu)}.cbadge{background:var(--li);color:#071A0A;padding:.37rem .93rem;border-radius:100px;font-size:.7rem;font-weight:700}.fc{position:absolute;top:2rem;right:-2rem;background:rgba(11,34,16,.82);border:1px solid var(--gb);border-radius:12px;padding:1rem 1.2rem;backdrop-filter:blur(18px);min-width:148px}.fn2{font-size:1.8rem;font-weight:800;color:var(--li);line-height:1}.fl2{font-size:.66rem;color:var(--mu);font-weight:500;margin-top:.17rem}.sr{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gb);border-top:1px solid var(--gb);border-bottom:1px solid var(--gb);position:relative;z-index:1}.sc{background:var(--bg);padding:2rem;text-align:center}.sn{font-size:2.1rem;font-weight:800;color:var(--li);line-height:1;display:block}.sl{font-size:.66rem;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-top:.28rem}.how{padding:5.5rem 3rem;position:relative;z-index:1}.st{text-align:center;margin-bottom:3.5rem}.stag{display:inline-block;background:var(--gl);border:1px solid var(--gb);backdrop-filter:blur(10px);padding:.4rem 1rem;border-radius:100px;font-size:.67rem;font-weight:600;color:var(--li);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.2rem}h2{font-size:2.6rem;font-weight:800;letter-spacing:-.03em;line-height:1.05}.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem}.scard{background:var(--gl);border:1px solid var(--gb);border-radius:14px;padding:1.75rem;backdrop-filter:blur(10px);transition:background .3s,transform .3s}.scard:hover{background:rgba(255,255,255,.07);transform:translateY(-4px)}.snum{font-size:2.4rem;font-weight:800;color:rgba(188,239,90,.12);line-height:1;margin-bottom:.9rem}.stit{font-weight:700;font-size:.88rem;margin-bottom:.45rem}.sdesc{font-size:.77rem;color:var(--mu);line-height:1.75}.plans{padding:5.5rem 3rem;position:relative;z-index:1}.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}.pc2{background:var(--gl);border:1px solid var(--gb);border-radius:18px;padding:1.9rem;backdrop-filter:blur(12px);position:relative;transition:transform .3s}.pc2.feat{background:rgba(188,239,90,.07);border-color:rgba(188,239,90,.27)}.pc2:hover{transform:translateY(-4px)}.pbadge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--li);color:#071A0A;font-size:.61rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.27rem .93rem;border-radius:100px;white-space:nowrap}.pimg{height:130px;border-radius:10px;overflow:hidden;margin-bottom:1.4rem}.pimg img{width:100%;height:100%;object-fit:cover}.pname{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:.45rem}.pc2.feat .pname{color:var(--li)}.pprice{font-size:2.4rem;font-weight:800;line-height:1;margin-bottom:.22rem}.pprice sup{font-size:.93rem;font-weight:400;color:var(--mu)}.pfreq{font-size:.7rem;color:var(--mu);margin-bottom:1.4rem}.pfeats{list-style:none;display:flex;flex-direction:column;gap:.53rem;margin-bottom:1.75rem}.pfeats li{font-size:.79rem;color:var(--mu);display:flex;align-items:center;gap:.45rem}.pfeats li::before{content:'\u2713';color:var(--li);font-weight:700;font-size:.77rem}.pbtn{display:block;text-align:center;padding:.85rem;border-radius:100px;font-size:.79rem;font-weight:700;cursor:pointer;border:1px solid var(--gb);color:var(--wh);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s}.pbtn:hover{background:rgba(255,255,255,.07)}.pc2.feat .pbtn{background:var(--li);color:#071A0A;border-color:var(--li)}.pc2.feat .pbtn:hover{background:var(--l2)}.cstrip{margin:0 3rem 3.5rem;background:var(--li);border-radius:22px;padding:3.5rem;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;position:relative;z-index:1}.ctitle{font-size:2.4rem;font-weight:800;color:#071A0A;letter-spacing:-.03em;line-height:1.05}.cright{display:flex;flex-direction:column;gap:.7rem;align-items:flex-end}.cbtn2{background:#071A0A;color:var(--li);padding:.95rem 2.4rem;border-radius:100px;font-size:.82rem;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap}.cnote{font-size:.7rem;color:rgba(7,26,10,.5);font-weight:500}footer{padding:2.25rem 3rem;border-top:1px solid var(--gb);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}.flogo{font-weight:800;font-size:.95rem;display:flex;align-items:center;gap:.4rem}.fdot{width:9px;height:9px;background:var(--li);border-radius:50%}.fnote{font-size:.7rem;color:var(--mu)}</style></head><body><nav><div class=\"logo\"><div class=\"lr\">\ud83c\udf3f</div>FreshBox Ghana</div><ul class=\"nl\"><li><a href=\"#\">How It Works</a></li><li><a href=\"#\">Our Boxes</a></li><li><a href=\"#\">Zones</a></li><li><a href=\"#\">Blog</a></li></ul><button class=\"nc\">Get My Box</button></nav><div class=\"hero\"><div><div class=\"hb\"><span class=\"bd\"></span>Farm-Fresh \u00b7 Delivered Weekly</div><h1>Eat Fresh.<br>Live Better.<br><span class=\"lime\">Delivered.</span></h1><p class=\"hs\">Seasonal fruits and vegetables handpicked from Ghanaian farms \u2014 straight to your door in Accra, Tema, Kumasi and beyond. Every week, without fail.</p><div class=\"ha\"><button class=\"bm\">Start My Subscription</button><button class=\"bg\">What's in Season \u2192</button></div><div class=\"tr\"><span class=\"tc\">No commitment</span><span class=\"tc\">MoMo payments</span><span class=\"tc\">Same-week delivery</span><span class=\"tc\">Skip anytime</span></div></div><div class=\"hv\"><div class=\"mc\"><img src=\"https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=700&q=85\" alt=\"Fresh produce\"/><div class=\"cb\"><div class=\"cr\"><div><div class=\"ctit\">This Week's Family Box</div><div class=\"csub\">14 seasonal items \u00b7 Free delivery</div></div><div class=\"cbadge\">\u20b5 160</div></div></div></div><div class=\"fc\"><div class=\"fn2\">2,400+</div><div class=\"fl2\">Happy customers<br>across Ghana</div></div></div></div><div class=\"sr\"><div class=\"sc\"><span class=\"sn\">48hr</span><div class=\"sl\">Delivery time</div></div><div class=\"sc\"><span class=\"sn\">30+</span><div class=\"sl\">Farm partners</div></div><div class=\"sc\"><span class=\"sn\">5\u2605</span><div class=\"sl\">Avg rating</div></div><div class=\"sc\"><span class=\"sn\">0%</span><div class=\"sl\">Pesticide use</div></div></div><div class=\"how\"><div class=\"st\"><div class=\"stag\">Simple Process</div><h2>Farm to Your <span class=\"lime\">Door</span> in 4 Steps</h2></div><div class=\"sg\"><div class=\"scard\"><div class=\"snum\">01</div><div class=\"stit\">Choose Your Box</div><div class=\"sdesc\">Pick a size and frequency \u2014 Starter, Family, or Premium \u2014 that suits your household.</div></div><div class=\"scard\"><div class=\"snum\">02</div><div class=\"stit\">We Pack Fresh</div><div class=\"sdesc\">Our team handpicks in-season produce from Ghanaian farm partners every week.</div></div><div class=\"scard\"><div class=\"snum\">03</div><div class=\"stit\">Pay with MoMo</div><div class=\"sdesc\">Instant, secure checkout via MTN Mobile Money, Vodafone Cash, or AirtelTigo Money.</div></div><div class=\"scard\"><div class=\"snum\">04</div><div class=\"stit\">Delivered to You</div><div class=\"sdesc\">Contactless drop-off at your door across Accra, Tema, Kumasi and more zones.</div></div></div></div><div class=\"plans\"><div class=\"st\"><div class=\"stag\">Pricing</div><h2>Pick a Plan. <span class=\"lime\">Pause Anytime.</span></h2></div><div class=\"pg\"><div class=\"pc2\"><div class=\"pimg\"><img src=\"https://images.unsplash.com/photo-1518843875459-f738682238a6?w=400&q=80\" alt=\"Starter\"/></div><div class=\"pname\">Starter Box</div><div class=\"pprice\"><sup>\u20b5</sup>85</div><div class=\"pfreq\">per week \u00b7 feeds 1\u20132</div><ul class=\"pfeats\"><li>6\u20138 seasonal items</li><li>Fruits &amp; vegetables</li><li>Weekly delivery</li><li>Recipe card</li></ul><button class=\"pbtn\">Get Started</button></div><div class=\"pc2 feat\"><div class=\"pbadge\">Most Popular</div><div class=\"pimg\"><img src=\"https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=400&q=80\" alt=\"Family\"/></div><div class=\"pname\">Family Box</div><div class=\"pprice\"><sup>\u20b5</sup>160</div><div class=\"pfreq\">per week \u00b7 feeds 3\u20135</div><ul class=\"pfeats\"><li>14\u201316 seasonal items</li><li>Fruits, veggies &amp; herbs</li><li>Free delivery always</li><li>Weekly recipe guide</li><li>10% loyalty reward</li></ul><button class=\"pbtn\">Get Started</button></div><div class=\"pc2\"><div class=\"pimg\"><img src=\"https://images.unsplash.com/photo-1557844352-761f2565b576?w=400&q=80\" alt=\"Premium\"/></div><div class=\"pname\">Premium Box</div><div class=\"pprice\"><sup>\u20b5</sup>240</div><div class=\"pfreq\">per week \u00b7 feeds 5\u20138</div><ul class=\"pfeats\"><li>20+ seasonal items</li><li>Exotic &amp; local varieties</li><li>Priority morning delivery</li><li>Personal produce guide</li><li>Monthly free smoothie kit</li></ul><button class=\"pbtn\">Get Started</button></div></div></div><div class=\"cstrip\"><div class=\"ctitle\">Your first box<br>is 20% off.</div><div class=\"cright\"><button class=\"cbtn2\">Claim My Discount \u2192</button><span class=\"cnote\">Use code FRESH20 \u00b7 New subscribers only</span></div></div><footer><div class=\"flogo\"><div class=\"fdot\"></div>FreshBox Ghana</div><div class=\"fnote\">\u00a9 2025 FreshBox Ghana \u00b7 Tema, Ghana \u00b7 Built by Tech Migos</div></footer></body></html>" }
+  };
+
+  function openSite(key) {
+    const site = sites[key];
+    const modal = document.getElementById('siteModal');
+    const frame = document.getElementById('modalFrame');
+    document.getElementById('modalUrl').textContent = site.url;
+    const blob = new Blob([site.html], { type: 'text/html' });
+    frame.src = URL.createObjectURL(blob);
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('siteModal').classList.remove('open');
+    document.body.style.overflow = '';
+    document.getElementById('modalFrame').src = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
